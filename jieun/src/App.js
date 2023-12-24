@@ -5,7 +5,7 @@ import BookProps from './practice02/BookProps';
 function App() {
 
   return (
-      <BookProps />
+      <></>
   );
 }
 
