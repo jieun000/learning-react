@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
-export const Atom = atom({
-    key: 'OneAtom', // 전역적으로 유일
-    default: 0
-})
+export const countState = atom({
+  key: "count",
+  default: 10
+});

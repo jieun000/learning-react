@@ -1,6 +1,6 @@
-import React from "react";
-import styled from 'styled-components';
-
+import styled from "styled-components";
+ 
+// styled-components를 사용하여 스타일을 지정한 NewsItemBlock 컴포넌트
 const NewsItemBlock = styled.div`
     display: flex;
     .thumbnail {
@@ -15,9 +15,8 @@ const NewsItemBlock = styled.div`
     .contents {
         h2 {
             margin: 0;
-            a {
-                color: black;
-            }
+        a {
+            color: black;
         }
         p {
             margin: 0;
@@ -31,22 +30,23 @@ const NewsItemBlock = styled.div`
     }
 `;
 
-const NewsItem = ({ article })=> {
+// NewsItem 컴포넌트 정의
+const NewsItem = ({ article }) => {
     const { title, description, url, urlToImage } = article;
     return (
         <NewsItemBlock>
             {urlToImage && (
                 <div className="thumbnail">
                     <a href={url} target="_blank" rel="noopener noreferrer">
-                        <img src={urlToImage} alt="thumbnail" />
+                    <img src={urlToImage} alt="thumbnail" />
                     </a>
                 </div>
             )}
             <div className="contents">
                 <h2>
-                    <a href={url} target="_blank" rel="noopener noreferrer">
-                        {title}
-                    </a>
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                    {title}
+                </a>
                 </h2>
                 <p>{description}</p>
             </div>

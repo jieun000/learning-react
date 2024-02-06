@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import React from 'react';
+import Counter from './recoil/Counter';
+import DisplayCounter from './recoil/DisplayCounter';
 
 const App = () => {
- 
-  const [one, setOne] = useRecoilState(OneAtom);
-
+  console.log("App 컴포넌트")
+  
   return (
     <>
-     
+     <Counter />
+     <DisplayCounter />
     </>
   );
 };
