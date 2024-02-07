@@ -1,25 +1,23 @@
 import React from 'react'
-import axios from 'axios';
+import './App.css';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import About from './routes/About';
+import Home from './routes/Home';
+import Detail from './routes/Detail';
+import Navigation from './components/Navigation';
 
-class App extends React.Component {
-  state = { 
-    isLoading: true,
-    movies: []
-  };
-  getMovies = async() => {
-    const movies = await axios.get('https://yts.mx/api/v2/list_movies.json');
-  };
-
-  componentDidMount() {
-    this.getMovies();
-  }
-
-  render() {
-    const { isLoading } = this.state;
-    return <div>{isLoading ? 'Loading...' : 'We are ready'}</div>;
-  };
+function App() {
+  return (
+    <HashRouter>
+      <Navigation />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />}/>
+        <Route path='/movie-detail' element={<Detail />}/>
+      </Routes>
+    </HashRouter>
+  );
 }
 
-export default App
-
-// https://github.com/serranoarevalo/yts-proxy
+export default App;
+// npm run deploy 배포
