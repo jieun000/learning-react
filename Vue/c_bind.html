@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .strike-through {
+            text-decoration: line-through;
+            color: lightgray;
+        }
+        .dark {
+            background-color: gray;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <img v-bind:src="imgFileName">
+        <p><a v-bind:href="hrefURL">v-bind</a></p>
+        <p><a :href="hrefURL">v-bind 생략</a></p>
+        <p v-bind:align="myAlign">정렬</p>
+        <p v-bind:style="{color: myColor, fontSize: myFontSize, backgroundColor: myBackColor}">스타일 다양하게 적용</p>
+        <p v-bind:class="myClass">v-bind로 클래스</p>
+        <p :class="[myClass, darkClass]">v-bind로 복수 클래스</p>
+        <p :class="{'strike-through': isON}">data로 속성 ON/OFF</p>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#app", 
+        data: {
+            imgFileName: "./images/ex.png",
+            hrefURL: "https://jieun000.github.io",
+            myAlign: "center",
+            myColor: "lightpink",
+            myFontSize: "150%",
+            myBackColor: "skyblue",
+            myClass: "strike-through",
+            darkClass: "dark",
+            isON: true
+        }
+    })
+    </script>
+</body>
+</html>

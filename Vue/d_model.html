@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input v-model="myName" placeholder="이름">
+        <p>나는 {{ myName }}입니다.</p>
+        <hr>
+        <textarea v-model="myText"></textarea>
+        <p>문장은 「{{ myText }}」</p>
+        <p>문자수는 「{{ myText.length }}」</p>
+        <hr>
+        <label><input type="checkbox" v-model="myCheck">체크박스 상태 check: {{ myCheck }}</label>
+        <hr>
+        <label><input type="checkbox" value="red" v-model="myChecks">적</label>
+        <label><input type="checkbox" value="green" v-model="myChecks">녹</label>
+        <label><input type="checkbox" value="blue" v-model="myChecks">청</label><br>
+        선택한 색은 {{ myChecks }}입니다.
+        <hr>
+        <label><input type="checkbox" v-model="myAgree">동의합니다.</label>
+        <button :disabled="myAgree==false">송신</button>
+    </div>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            myName: '',
+            myText: '오늘 날씨 맑음',
+            myCheck: false,
+            myChecks: [],
+            myAgree: false
+        }
+    })
+    </script>
+</body>
+</html>
