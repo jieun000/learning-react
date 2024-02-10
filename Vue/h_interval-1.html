@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- TweenMax: https://gsap.com/docs/v3/Installation/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- computed: 데이터의 값을 계산 -->
+        <h2>단가와 개수를 입력하면 세금 포함 금액을 계산</h2>
+        <input type="number" v-model.number="price">원 x
+        <input type="number" v-model.number="count">개
+        <p>합계: {{ sum }}원</p>
+        <p>세금 포함: {{ taxInclude }}원</p>
+        <hr>
+        <h2>문장 입력 시 남은 글자수를 표시</h2>
+        <p>감상은 140자 이내로!</p>
+        <textarea v-model="myText" cols="50" rows="5" ></textarea>
+        <p :style="{color: computedColor}">남은 글자는 {{ remaining }} 입니다.</p>
+        <hr>
+        <h2>문자 입력 시 그 문자 포함 항목만 표시</h2>
+        <input v-model="findWord">
+        <ul>
+            <li v-for="item in findItems">{{ item }}</li>
+        </ul>
+        <hr>
+        <h2>적, 녹, 청색 슬라이더를 움직이면 완성된 색을 표시</h2>
+        <p :style="{backgroundColor: mixColor}"> {{ mixColor }}</p>
+        R: {{ R }} <input type="range" v-model="R" min="0" max="255"><br>
+        G: {{ G }} <input type="range" v-model="G" min="0" max="255"><br>
+        B: {{ B }} <input type="range" v-model="B" min="0" max="255">
+        <hr>
+        <!-- watch: 데이터의 변화 감지 -->
+        <h2>금지 문자 입력시 경고</h2>
+        <p>금지 문자는 「{{ forbiddenText }}」</p>
+        <textarea v-model="inputText"></textarea>
+        <hr>
+        <h2>남은 시간을 감시하여 표시하고 0초가 되면 알림</h2>
+        <button @click="startTimer">Start</button><span> 앞으로 {{ restSec }}초!</span>
+        <hr>
+        <h2>TweenMax: JS로 애니메이션을 만드는 라이브러리</h2>
+        <p>값은 {{ animeNumber }}입니다.</p>
+        <input type="number" v-model.number="myNumber">
+    </div>
+
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            price: 100,
+            count: 1,
+            myText: '오늘은 좋은 날씨',
+            findWord: '',
+            items: ['설악산', '한라산', '북한산', '백두산', '지리산'],
+            R: 255, G: 150, B: 100,
+            forbiddenText: '노노',
+            inputText: '오늘 날씨 좋네',
+            restSec: 5,
+            timerObj: null,
+            myNumber: 0,
+            tweenedNumber: 0
+        },
+        computed: {
+            sum: function() {
+                return this.price * this.count;
+            },
+            taxInclude: function() {
+                return this.sum * 1.08;
+            }, 
+            remaining: function() {
+                return 140 - this.myText.length;
+            },
+            computedColor: function() {
+                col = 'green';
+                if (this.remaining < 20) col = 'orange';
+                if (this.remaining < 1) col = 'red';
+                return col;
+            },
+            findItems: function() {
+                if (this.findWord) {
+                    return this.items.filter(function(value) {
+                        return (value.indexOf(this.findWord) > -1);
+                    }, this);
+                } else { return this.items };
+            },
+            mixColor: function() {
+                var ans = "RGB(" + this.R + ", " + this.G + ", " + this.B + ")";
+                return ans;
+            }
+        },
+        watch: {
+            inputText: function() {
+                var pos = this.inputText.indexOf(this.forbiddenText);
+                if (pos >= 0) {
+                    alert(this.forbiddenText + "는 입력 금지입니다.");
+                    this.inputText = this.inputText.substr(0, pos);
+                }
+            }
+        },
+        methods: {
+            startTimer: function() {
+                this.restSec = 5;
+                this.timerObj = setInterval(()=> { this.restSec-- }, 1000)
+            }
+        },
+        watch: {
+            restSec: function() {
+                if (this.restSec <= 0) {
+                    alert('제한시간!');
+                    clearInterval(this.timerObj);
+                }
+            },
+            myNumber: function() {
+                TweenMax.to(this.$data, 1, {tweenedNumber: this.myNumber})
+            }
+        },
+        computed: {
+            animeNumber: function() {
+                return this.tweenedNumber.toFixed(0);
+            }
+        }
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p v-if="myVisible">체크박스는 ON</p>
+        <p v-else>체크박스는 OFF</p>
+        <button @click="checkChange">체크박스 첼린지</button>
+        <hr>
+        <li v-for="item in myArray">{{ item }}</li>
+        <li v-for="item in myObjArray">{{ item.name }}</li>
+        <hr>
+        <li v-for="n in 10">{{ n }}</li>
+    </div>
+
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            myVisible: false,
+            myArray: ['호빵', '소라빵', '크로와상'],
+            myObjArray: [
+                {name: '호빵', prive: 1000},
+                {name: '소라빵', prive: 1500},
+                {name: '크로와상', prive: 2000}
+            ],
+        },
+        methods: {
+            checkChange: function() {
+                this.myVisible = !this.myVisible;
+            }
+        }
+    });
+    // this.myArray.push(추가하기);
+    // this.myArray.push(지정위치, 0, 추가데이터);
+    // this.myArray.push(지정취치, 1, 변경데이터);
+    // this.myArray.splice(지정위치, 1); // 삭제
+    </script>
+</body>
+</html>

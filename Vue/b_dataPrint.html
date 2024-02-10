@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+    <!-- {{데이터}} : 데이터를 그대로 표시 -->
     <div id="app">
         <h1>다양한 데이터 출력</h1>
         <p>{{myText}}</p>
@@ -20,6 +21,7 @@
         <p>반복문 {{$data}}</p>
         <li v-for="(item, key) in $data">{{key}} : {{item}}</li>
     </div>
+
     <script>
     new Vue({
         el: '#app',

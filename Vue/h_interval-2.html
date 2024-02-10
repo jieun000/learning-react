@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>제한 시간내에 문자 입력하기</h2>
+        <p>금지문자(,로 나누어 복수 입력가능): <input :disabled="!isWritable" v-model="forbiddenText"></p>
+        <p>
+            제한시간을 입력하세요(초): 
+            <input :disabled="!isWritable" @keyup.enter="timeSet" v-model="timeSet"> 
+            <button :disabled="!isWritable" @click="startTimer">시작</button></p>
+        <p>남은 시간 {{ restSec }}초</p>
+        <textarea style="width: 100%; height: 100px;" :disabled="isWritable" v-model="myText"></textarea>
+        <p>총 입력 문자: {{ myText.length }}자</p>
+        <p>벌점: {{ penalty }}점 (금지 문자 1개당 12점)</p>
+    </div>
+
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            forbiddenText: '금지어',
+            timeSet: 0,
+            restSec: 0,
+            isWritable : true,
+            myText: '예시문',
+            forbiddenCnt: 0,
+        },
+        methods: {
+            startTimer: function() {
+                this.isWritable =  false;
+                this.restSec = this.timeSet;
+                this.timerObj = setInterval(()=> { this.restSec-- }, 1000)
+            }
+        },
+        computed: {
+            penalty: function() {
+                return this.forbiddenCnt * 12;
+            }
+        },
+        watch: {      
+            restSec: function() {
+                if (this.restSec <= 0) {
+                    alert('제한시간 종료!');
+                    clearInterval(this.timerObj);
+                    this.isWritable = true;
+                }
+            },
+            myText : function() {
+                var arrForbiddenText = this.forbiddenText.split(',');
+                for(var i=0; i<arrForbiddenText.length; i++) {
+                    var pos = this.myText.indexOf(arrForbiddenText[i]);
+                    if (pos >= 0) {
+                        alert(this.forbiddenText + "는 입력 금지입니다.");
+                        this.myText = this.myText.substr(0, pos);
+                        this.restSec = this.restSec + 10;
+                        this.forbiddenCnt++;
+                    }
+                }
+            }
+        }
+    })
+    </script>
+</body>
+</html>

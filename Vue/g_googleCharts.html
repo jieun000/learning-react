@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- https://developers.google.com/chart/interactive/docs/gallery/piechart?hl=ko -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+    <h2>Google Charts로 원그래프</h2>
+    <h3>선호하는 점심 메뉴</h3>
+    <div id="piechart_3d" style="height: 250px;"></div>
+    <div id="app">
+        <li v-for="(item, c) in dataArray" v-if="c>0">{{ item[0] }} : {{ item[1] }}
+            <button @click="addOne(c)">한 표</button>
+        </li>
+    </div>
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        var orgdata = [
+            ['종류', '개수'],
+            ['도시락', 3], ['갈비탕', 4], ['오므라이스', 5],
+            ['짬뽕', 1], ['비빔밥', 3], ['메밀소바', 1]
+        ]
+        // 그래프 그리기 함수
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(orgdata);
+            var options = {title: '선호하는 점심', is3D: true};
+            var chart = new google.visualization.PieChart(
+                document.getElementById('piechart_3d')
+            );
+            chart.draw(data, options);
+        }
+        new Vue({
+            el: '#app',
+            data: { dataArray : orgdata },
+            methods: {
+                addOne: function(val) {
+                    var obj = this.dataArray[val];
+                    obj[1]++;
+                    this.dataArray.splice(val, 1, obj);
+                    drawChart();
+                }
+            }
+        })
+        
+    </script>
+</body>
+</html>

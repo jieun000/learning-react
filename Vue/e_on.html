@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+     <!-- v-on : 이벤트와 메소드를 연결 -->
+     <div id="app">
+        <p>{{ count }}</p>
+        <button v-on:click="countUp">1씩 증가</button>
+        <button v-on:click="countUpInstance(3)">1씩 증가</button>
+        <hr>
+        <p>{{ myText }}</p>
+        <input @keyup.enter="showAlert" v-model="myText">
+        <hr>
+        간단 계산기 <br>
+        <input v-model.number="cal1">
+        <input v-model.number="cal2">
+        <p>
+            <button @click="cal_add">덧셈계산</button>
+            <button @click="cal_minus ">뺄셈계산</button>
+            <button @click="cal_mul">곱셈계산</button>
+            <button @click="cal_div">나눗셈계산</button>
+        </p>
+        <p>연산 결과는 {{ cal_result }}입니다.</p>
+    </div>
+
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            count: 0,
+            myText: 'Hello',
+            cal1: 0,
+            cal2: 0,
+            cal_result: 0
+        },
+        methods: {
+            countUp: function() {
+                this.count++;
+            },
+            countUpInstance: function(value) {
+                this.count += value;
+            },
+            showAlert: function() {
+                alert("Enter키를 눌렀습니다.");
+            },
+            cal_add: function() {
+                this.cal_result = 0;
+                this.cal_result = this.cal1 + this.cal2;
+            },
+            cal_minus: function() {
+                this.cal_result = 0;
+                this.cal_result = this.cal1 - this.cal2;
+            },
+            cal_mul: function() {
+                this.cal_result = 0;
+                this.cal_result = parseFloat(this.cal1) * parseFloat(this.cal2);
+            },
+            cal_div: function() {
+                this.cal_result = 0;
+                this.cal_result = parseFloat(this.cal1) / parseFloat(this.cal2);
+            }
+        }
+    })
+    </script>
+</body>
+</html>

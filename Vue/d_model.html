@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+    <!-- v-model : 입력 폼을 데이터와 연결(데이터 입력) -->
     <div id="app">
         <input v-model="myName" placeholder="이름">
         <p>나는 {{ myName }}입니다.</p>
@@ -24,7 +25,37 @@
         <hr>
         <label><input type="checkbox" v-model="myAgree">동의합니다.</label>
         <button :disabled="myAgree==false">송신</button>
+        <hr>
+        <label><input type="radio" value="red" v-model="picked">적</label>
+        <label><input type="radio" value="green" v-model="picked">녹</label>
+        <label><input type="radio" value="blue" v-model="picked">청</label><br>
+        {{ picked }}이 선택되었습니다.
+        <hr>
+        <label><input type="radio" value="./images/ex.png" v-model="imgFileName">vue image</label>
+        <label><input type="radio" value="" v-model="imgFileName">no image</label><br>
+        <img v-bind:src="imgFileName">
+        <hr>
+        <select v-model="myColor" multiple>
+            <option>red</option>
+            <option>green</option>
+            <option>blue</option>
+            <option>orange</option>
+            <option>brown</option>
+        </select>
+        <p>선택한 색은 {{ myColor }}입니다.</p>
+        <hr>
+        v-model.수식어
+        <p>입력 완료 후 vue 인스턴스 데이터에 입력</p>
+        <input v-model.lazy="lazeText">
+        <p>입력 후 표시 「{{ lazeText }}」</p>
+        <p>입력 내용 자동 수식으로 변경</p>
+        <input v-model.number="numberText">
+        <p>100을 더해서 표시 「{{ 100 + numberText }}」</p>
+        <p>입력 내용 자동 수식으로 변경</p>
+        <input v-model.trim="trimText">
+        <p>앞뒤 공백과 중복 공백 제거 「{{ trimText }}」</p>
     </div>
+    
     <script>
     new Vue({
         el: '#app',
@@ -33,7 +64,13 @@
             myText: '오늘 날씨 맑음',
             myCheck: false,
             myChecks: [],
-            myAgree: false
+            myAgree: false,
+            picked: 'red',
+            imgFileName: '',
+            myColor: [],
+            lazeText: '',
+            numberText: 0,
+            trimText: ''
         }
     })
     </script>
