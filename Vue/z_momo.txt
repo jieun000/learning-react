@@ -1,0 +1,12 @@
+npm install -g @vue/cli
+
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+vue create my-vue-project
+    - vue init webpack
+    - vue init webpack-simple
+
+cd my-vue-project
+
+npm run serve
+
