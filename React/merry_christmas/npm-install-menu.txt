@@ -1,0 +1,9 @@
+npm install -D  postcss autoprefixer tailwind
+npx tailwindcss init -p
+
+npm install tailwindcss
+확장프로그램 Tailwind CSS 설치
+
+npm install react-icons react-snowfall react-router-dom styled-components react-simple-chatbot
+
+npm install ~
